@@ -3,21 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://jbsousa.github.io/about/</loc>
-    <lastmod>2020-01-23T00:00:00+00:00</lastmod>
+    <loc>https://jbrogueira.github.io/</loc>
+    <lastmod>2020-02-03T11:51:49+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jbsousa.github.io/</loc>
-    <lastmod>2020-01-23T00:00:00+00:00</lastmod>
+    <loc>https://jbrogueira.github.io/research/</loc>
+    <lastmod>2020-02-03T11:51:49+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jbsousa.github.io/tags/</loc>
+    <loc>https://jbrogueira.github.io/teaching/</loc>
+    <lastmod>2020-02-03T11:51:49+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jbsousa.github.io/topics/</loc>
+    <loc>https://jbrogueira.github.io/about/</loc>
+    <lastmod>2020-02-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jbrogueira.github.io/tags/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jbrogueira.github.io/topics/</loc>
   </url>
   
 </urlset>
