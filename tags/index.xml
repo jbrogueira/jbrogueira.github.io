@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on João Brogueira de Sousa</title>
-    <link>https://jbsousa.github.io/tags/</link>
+    <link>https://jbrogueira.github.io/tags/</link>
     <description>Recent content in Tags on João Brogueira de Sousa</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-EN</language>
     <managingEditor>jbsousa@ucp.pt (João Brogueira de Sousa)</managingEditor>
     <webMaster>jbsousa@ucp.pt (João Brogueira de Sousa)</webMaster>
     
-	<atom:link href="https://jbsousa.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jbrogueira.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
