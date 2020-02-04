@@ -8,6 +8,7 @@
     <language>en-EN</language>
     <managingEditor>jbsousa@ucp.pt (João Brogueira de Sousa)</managingEditor>
     <webMaster>jbsousa@ucp.pt (João Brogueira de Sousa)</webMaster>
+    <copyright>(c) 2020 João Brogueira de Sousa</copyright>
     <lastBuildDate>Mon, 03 Feb 2020 11:51:49 +0000</lastBuildDate>
     
 	<atom:link href="https://jbrogueira.github.io/index.xml" rel="self" type="application/rss+xml" />
@@ -19,7 +20,7 @@
       <pubDate>Mon, 03 Feb 2020 11:51:49 +0000</pubDate>
       <author>jbsousa@ucp.pt (João Brogueira de Sousa)</author>
       <guid>https://jbrogueira.github.io/research/</guid>
-      <description>NOTE: This page is currently under construction and will be updated often.</description>
+      <description> Working papers  Introducing an Austrian Backpack in Spain, with Julián Diáz-Saavedra and Ramon Marimon. On the Design of a European Unemployment Insurance System, with Árpád Ábrahám, Ramon Marimon and Lukas Mayr.  Publications  Existence and uniqueness of equilibrium in Lucas’ Asset Pricing model when utility is unbounded, with Fabian Schuetze, in Economic Theory Bulletin (2017).  Related notebook at QuantEcon.org.    </description>
     </item>
     
     <item>
@@ -29,19 +30,19 @@
       <author>jbsousa@ucp.pt (João Brogueira de Sousa)</author>
       <guid>https://jbrogueira.github.io/teaching/</guid>
       <description>NOTE: This page is currently under construction and will be updated often.
-In case you don&#39;t have a GitHub account, sign up for free and clone or download the course&#39;s repository linked below.
  Python for Finance, MSc in Finance at Universidade Católica Portuguesa You can find the course material in this GitHub repository.
- Intro to Python, MSc in Economics at Universidade Católica Portuguesa New material coming soon.</description>
+Intro to Python, MSc in Economics at Universidade Católica Portuguesa New material coming soon.
+In case you don&#39;t have a GitHub account, sign up for free and clone or download the course&#39;s repository linked above.</description>
     </item>
     
     <item>
-      <title>About</title>
+      <title>about</title>
       <link>https://jbrogueira.github.io/about/</link>
       <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
       <author>jbsousa@ucp.pt (João Brogueira de Sousa)</author>
       <guid>https://jbrogueira.github.io/about/</guid>
-      <description>I&#39;m a postdoctoral researcher in Economics at Universidade Católica Portuguesa, in Lisbon.
-In this website you can find a list of published articles and work in progress. You can find most of the code I use for research and teaching on GitHub.</description>
+      <description>I&#39;m a postdoctoral researcher in Economics at Universidade Católica Portuguesa, in Lisbon. I obtained a PhD in Economics at the European University Institute.
+In this website you can find my work in quantitative macroeconomics, as well as the Python courses I currently teach at Católica. You can find most of the code I work with in GitHub.</description>
     </item>
     
   </channel>
