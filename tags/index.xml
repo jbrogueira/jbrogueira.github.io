@@ -6,12 +6,8 @@
     <description>Recent content in Tags on João Brogueira de Sousa</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-EN</language>
-    <managingEditor>jbsousa@ucp.pt (João Brogueira de Sousa)</managingEditor>
-    <webMaster>jbsousa@ucp.pt (João Brogueira de Sousa)</webMaster>
-    <copyright>(c) 2020 João Brogueira de Sousa</copyright>
-    
-	<atom:link href="https://jbrogueira.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <managingEditor>joao.sousa@novasbe.pt (João Brogueira de Sousa)</managingEditor>
+    <webMaster>joao.sousa@novasbe.pt (João Brogueira de Sousa)</webMaster>
+    <copyright>(c) 2020 João Brogueira de Sousa</copyright><atom:link href="https://jbrogueira.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
