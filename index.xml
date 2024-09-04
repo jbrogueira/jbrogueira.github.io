@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>J. B. Sousa on João Brogueira de Sousa</title>
-    <link>http://localhost:1313/</link>
+    <link>https://jbsousa.com/</link>
     <description>Recent content in J. B. Sousa on João Brogueira de Sousa</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://jbsousa.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Resume</title>
-      <link>http://localhost:1313/cv/</link>
+      <link>https://jbsousa.com/cv/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/cv/</guid>
+      <guid>https://jbsousa.com/cv/</guid>
       <description>Appointments Assistant Professor, Nova School of Business and Economics, 2024- Junior Researcher, Nova School of Business and Economics, 2021-2024 Postdoctoral Reseacher, Católica Lisbon School of Business and Economics, 2019-2021 Education Ph.D. in Economics, European University Institute, 2018 M.Res. in Economics, European University Institute, 2015 M.Sc. in Economics, Universidade Católica Portuguesa, 2013 Licenciatura in Aerospace Engineering, Instituto Superior Técnico, 2010 </description>
     </item>
     <item>
       <title>teaching</title>
-      <link>http://localhost:1313/teaching/</link>
+      <link>https://jbsousa.com/teaching/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/teaching/</guid>
+      <guid>https://jbsousa.com/teaching/</guid>
       <description>This page is being updated.&#xA;NOVA SBE courses: Public Finance, MSc in Economics Advanced Topics in Macro, PhD in Economics &amp;amp; Finance Macroeconomics, PhD in Economics &amp;amp; Finance Past courses:&#xA;Católica-Lisbon SBE: Python for Finance, MSc in Finance Introduction to Python, MSc in Economics </description>
     </item>
   </channel>
