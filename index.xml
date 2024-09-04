@@ -1,32 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>João Brogueira de Sousa</title>
+    <title>J. B. Sousa on João Brogueira de Sousa</title>
     <link>http://localhost:1313/</link>
-    <description>Recent content on João Brogueira de Sousa</description>
+    <description>Recent content in J. B. Sousa on João Brogueira de Sousa</description>
     <generator>Hugo</generator>
     <language>en</language>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Contact</title>
-      <link>http://localhost:1313/contact/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/contact/</guid>
-      <description> Email: foo@xyz.com Phone: +91-123123 Mailing Address 221B, Baker Street&#xA;London&#xA;United Kingdom&#xA;Social Facebook Twitter Google+ </description>
-    </item>
-    <item>
-      <title>J. B. Sousa</title>
-      <link>http://localhost:1313/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/about/</guid>
-      <description>Assistant Professor in Economics at Nova School of Business and Economics, Universidade Nova de Lisboa.&#xA;email: joao.sousa@novasbe.pt&#xA;Work in progress &amp;ldquo;Taxes and Migration Flows: Preferential Tax Schemes for High-Skill Immigrants&amp;rdquo; [working paper] [CEPR discussion paper], with Pedro Teles&#xA;&amp;ldquo;Schooling and Lifetime Labor Supply&amp;rdquo; [slides]&#xA;&amp;ldquo;Modeling Wealth and Income Inequality: Implications for Optimal Taxation&amp;rdquo;, with Pedro Brinca, Hans. A. Holter, and Catarina Reis&#xA;&amp;ldquo;Global Repository of Income Dynamics (GRID): Portugal Country team&amp;rdquo;, with João B.</description>
-    </item>
-    <item>
       <title>Resume</title>
-      <link>http://localhost:1313/resume/</link>
+      <link>http://localhost:1313/cv/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/resume/</guid>
+      <guid>http://localhost:1313/cv/</guid>
       <description>Appointments Assistant Professor, Nova School of Business and Economics, 2024- Junior Researcher, Nova School of Business and Economics, 2021-2024 Postdoctoral Reseacher, Católica Lisbon School of Business and Economics, 2019-2021 Education Ph.D. in Economics, European University Institute, 2018 M.Res. in Economics, European University Institute, 2015 M.Sc. in Economics, Universidade Católica Portuguesa, 2013 Licenciatura in Aerospace Engineering, Instituto Superior Técnico, 2010 </description>
+    </item>
+    <item>
+      <title>teaching</title>
+      <link>http://localhost:1313/teaching/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/teaching/</guid>
+      <description>This page is being updated.&#xA;NOVA SBE courses: Public Finance, MSc in Economics Advanced Topics in Macro, PhD in Economics &amp;amp; Finance Macroeconomics, PhD in Economics &amp;amp; Finance Past courses:&#xA;Católica-Lisbon SBE: Python for Finance, MSc in Finance Introduction to Python, MSc in Economics </description>
     </item>
   </channel>
 </rss>
