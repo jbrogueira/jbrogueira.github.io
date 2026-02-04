@@ -8,18 +8,25 @@
     <language>en</language>
     <atom:link href="https://jbsousa.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>research</title>
+      <link>https://jbsousa.com/research/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://jbsousa.com/research/</guid>
+      <description>Working Papers &amp;ldquo;Taxes and Migration Flows: Preferential Tax Schemes for High-Skill Immigrants&amp;rdquo; [CEPR discussion paper], with Pedro Teles Publications &amp;ldquo;On the Design of a European Unemployment Insurance System&amp;rdquo;, European Economic Review, article 104469, Volume 156, July 2023, with Árpád Ábrahám, Ramon Marimon and Lukas Mayr&#xA;&amp;ldquo;A Worker&amp;rsquo;s Backpack as an Alternative to PAYG Pension Systems&amp;rdquo;, forthcoming, Journal of the European Economic Association, with Julián Diáz-Saavedra and Ramon Marimon&#xA;&amp;ldquo;Introducing an Austrian Backpack in Spain&amp;rdquo;, SERIEs 13, p.</description>
+    </item>
+    <item>
       <title>Resume</title>
       <link>https://jbsousa.com/cv/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://jbsousa.com/cv/</guid>
-      <description>Appointments Assistant Professor, Nova School of Business and Economics, 2024- Junior Researcher, Nova School of Business and Economics, 2021-2024 Postdoctoral Reseacher, Católica Lisbon School of Business and Economics, 2019-2021 Education Ph.D. in Economics, European University Institute, 2018 M.Res. in Economics, European University Institute, 2015 M.Sc. in Economics, Universidade Católica Portuguesa, 2013 Licenciatura in Aerospace Engineering, Instituto Superior Técnico, 2010 </description>
+      <description>Employment Assistant Professor, Nova School of Business and Economics, 2024- Junior Researcher, Nova School of Business and Economics, 2021-2024 Postdoctoral Reseacher, Católica Lisbon School of Business and Economics, 2019-2021 Education Ph.D. in Economics, European University Institute, 2018 M.Res. in Economics, European University Institute, 2015 M.Sc. in Economics, Universidade Católica Portuguesa, 2013 Licenciatura in Aerospace Engineering, Instituto Superior Técnico, 2010 </description>
     </item>
     <item>
       <title>teaching</title>
       <link>https://jbsousa.com/teaching/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://jbsousa.com/teaching/</guid>
-      <description>This page is being updated.&#xA;NOVA SBE courses: Public Finance, MSc in Economics Advanced Topics in Macro, PhD in Economics &amp;amp; Finance Macroeconomics II, PhD in Economics &amp;amp; Finance </description>
+      <description>NOVA SBE courses: Public Finance, MSc in Economics Advanced Topics in Macro, PhD in Economics &amp;amp; Finance Macroeconomics II, PhD in Economics &amp;amp; Finance </description>
     </item>
   </channel>
 </rss>
