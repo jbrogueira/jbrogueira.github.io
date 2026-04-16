@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code and AI Capabilities for Economics Research and Teaching</title>
+<style>
+  :root {
+    --bg: #1c1f2e;
+    --bg-soft: #232739;
+    --surface: #282c42;
+    --surface-2: #2f3450;
+    --border: #3a3f5a;
+    --border-soft: #32374e;
+    --text: #ecedf2;
+    --text-mid: #c6cad9;
+    --muted: #9aa1bc;
+    --dim: #6b7293;
+    --accent: #8b95e8;
+    --accent-2: #7cb5b8;
+    --accent-3: #9ac294;
+    --accent-warm: #d4b07a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 18px; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-feature-settings: "kern", "liga", "calt";
+  }
+
+  .deck { width: 100%; height: 100vh; position: relative; }
+
+  .slide {
+    display: none;
+    position: absolute;
+    inset: 0;
+    padding: 64px 88px 80px;
+    flex-direction: column;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .slide.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2) 55%, var(--accent-3));
+    opacity: 0.65;
+  }
+
+  .slide-num {
+    position: absolute;
+    bottom: 28px; right: 44px;
+    font-size: 15px;
+    color: var(--dim);
+    letter-spacing: 1.5px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .eyebrow {
+    font-size: 20px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+    font-weight: 700;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Charter', 'Iowan Old Style', 'Source Serif Pro', 'Georgia', 'Times New Roman', serif;
+    color: var(--text);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  h1 { font-size: 3.1rem; line-height: 1.12; margin-bottom: 14px; }
+  h2 { font-size: 3.6rem;  line-height: 1.12; margin-bottom: 34px; }
+  h3 { font-size: 1.22rem; line-height: 1.3;  margin-bottom: 7px; font-weight: 600; }
+
+  p { line-height: 1.65; color: var(--text-mid); font-size: 1rem; }
+  p.lede { font-size: 1.15rem; color: var(--text-mid); max-width: 760px; }
+
+  em { color: var(--text); font-style: italic; }
+  strong { color: var(--text); font-weight: 600; }
+
+  .muted { color: var(--muted); }
+  .dim   { color: var(--dim); }
+
+  /* ── Cards ── */
+  .cards { display: grid; gap: 14px; }
+  .cards.col2 { grid-template-columns: 1fr 1fr; }
+  .cards.col3 { grid-template-columns: 1fr 1fr 1fr; }
+  .cards.col4 { grid-template-columns: repeat(4, 1fr); }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 22px;
+  }
+
+  .card .label {
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .card h3 { margin-bottom: 6px; }
+  .card p  { font-size: 1.05rem; color: var(--muted); line-height: 1.5; }
+
+  .card.accent   { border-left: 3px solid var(--accent);   background: var(--surface-2); }
+  .card.accent-2 { border-left: 3px solid var(--accent-2); background: var(--surface-2); }
+  .card.accent-3 { border-left: 3px solid var(--accent-3); background: var(--surface-2); }
+  .card.warn     { border-left: 3px solid var(--accent-warm); background: var(--surface-2); }
+
+  /* ── Definition block ── */
+  .definition {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 18px 24px;
+    margin-bottom: 26px;
+    font-size: 1.1rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+    max-width: 820px;
+  }
+
+  .definition.serif { font-family: 'Charter', 'Iowan Old Style', Georgia, serif; font-size: 1.2rem; }
+
+  /* ── Two-col ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+    align-items: start;
+  }
+
+  .two-col.uneven { grid-template-columns: 0.85fr 1.15fr; }
+
+  /* ── Skill matrix ── */
+  .matrix {
+    display: grid;
+    grid-template-columns: 1.1fr 1.8fr 0.7fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 1020px;
+  }
+
+  .matrix .row {
+    display: contents;
+  }
+
+  .matrix .cell {
+    padding: 8px 18px;
+    border-top: 1px solid var(--border-soft);
+    background: var(--surface);
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    display: flex;
+    align-items: center;
+  }
+
+  .matrix .row.head .cell {
+    background: var(--bg-soft);
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+    border-top: none;
+    padding: 10px 18px;
+  }
+
+  .matrix .cell.skill { font-weight: 600; color: var(--text); }
+
+  .cap {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .cap::before {
+    content: '';
+    width: 8px; height: 8px; border-radius: 50%;
+    display: inline-block;
+  }
+
+  .cap.strong  { color: var(--accent-3); }
+  .cap.strong::before  { background: var(--accent-3); }
+  .cap.partial { color: var(--accent-warm); }
+  .cap.partial::before { background: var(--accent-warm); }
+  .cap.weak    { color: #c98a8a; }
+  .cap.weak::before    { background: #c98a8a; }
+
+  /* ── Timeline ── */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-left: 28px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px; top: 8px; bottom: 8px;
+    width: 1px;
+    background: linear-gradient(180deg, var(--accent), var(--accent-2), var(--accent-3));
+    opacity: 0.55;
+  }
+
+  .tl-item {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 10px 0;
+    position: relative;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -25px; top: 16px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+
+  .tl-year {
+    font-family: 'Charter', Georgia, serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 60px;
+    padding-top: 2px;
+  }
+
+  .tl-content h3 { font-size: 1rem; margin-bottom: 3px; font-weight: 700; }
+  .tl-content p  { font-size: 0.9rem; color: var(--muted); line-height: 1.45; }
+
+  /* ── Flow (working loop) ── */
+  .flow {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    align-items: stretch;
+    margin-bottom: 22px;
+  }
+
+  .flow .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 14px 18px;
+    position: relative;
+  }
+
+  .flow .step .n {
+    font-family: 'Charter', Georgia, serif;
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .flow .step h3 { font-size: 0.98rem; margin-bottom: 6px; }
+  .flow .step p  { font-size: 0.83rem; color: var(--muted); line-height: 1.5; }
+
+  .flow .step.user {
+    border-color: var(--accent-2);
+    background: var(--surface-2);
+  }
+
+  /* ── Tag chips ── */
+  .tag {
+    display: inline-block;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 4px 12px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin: 3px 3px 3px 0;
+    letter-spacing: 0.3px;
+  }
+
+  .tag.hi { border-color: var(--accent); color: var(--accent); }
+  .tag.warn { border-color: var(--accent-warm); color: var(--accent-warm); }
+
+  /* ── Lists ── */
+  ul.clean {
+    list-style: none;
+    padding: 0;
+  }
+
+  ul.clean li {
+    padding: 7px 0 7px 22px;
+    position: relative;
+    color: var(--text-mid);
+    font-size: 1.12rem;
+    line-height: 1.55;
+  }
+
+  ul.clean li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  ul.clean.tight li { padding: 4px 0 4px 22px; font-size: 1.05rem; }
+
+  /* ── Callout ── */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-2);
+    border-radius: 0 6px 6px 0;
+    padding: 16px 22px;
+    font-size: 1.08rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+    max-width: 960px;
+  }
+
+  /* ── Deep-dive nav (on slide 8) ── */
+  .deep-dive-nav {
+    display: flex;
+    gap: 10px;
+    margin-top: 28px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .deep-dive-nav .label {
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  .deep-dive-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-mid);
+    padding: 7px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: inherit;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+  }
+
+  .deep-dive-btn:hover {
+    border-color: var(--accent);
+    background: var(--surface-2);
+    color: var(--text);
+  }
+
+  .back-btn {
+    position: absolute;
+    bottom: 28px;
+    left: 44px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-family: inherit;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .back-btn:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  /* ── Navigation ── */
+  nav {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    z-index: 100;
+  }
+
+  nav button {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-mid);
+    padding: 7px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.92rem;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  nav button:hover { background: var(--surface-2); border-color: var(--accent); }
+  nav button:disabled { opacity: 0.3; cursor: default; }
+
+  .dots { display: flex; gap: 5px; padding: 0 6px; }
+  .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .dot.active { background: var(--accent); }
+
+  /* ── Title slide ── */
+  .slide-title {
+    background: radial-gradient(ellipse at 75% 30%, #252a43 0%, var(--bg) 65%);
+  }
+
+  .slide-title h1 { font-size: 5rem; line-height: 1.05; margin-bottom: 18px; }
+  .slide-title .eyebrow { font-size: 17px; letter-spacing: 3px; margin-bottom: 24px; }
+  .slide-title .lede { font-size: 1.4rem; margin-top: 4px; max-width: 820px; }
+
+  .meta {
+    display: flex;
+    gap: 44px;
+    margin-top: 44px;
+  }
+
+  .meta-item { display: flex; flex-direction: column; gap: 4px; }
+
+  .meta-item span:first-child {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--dim);
+    font-weight: 600;
+  }
+
+  .meta-item span:last-child {
+    font-size: 0.98rem;
+    color: var(--muted);
+  }
+
+  /* ── Section label (small caps) ── */
+  .kicker {
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  /* ── Scenario comparison ── */
+  .scenarios {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .scenario {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px 24px;
+  }
+
+  .scenario .tag-top {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+
+  .scenario.a .tag-top { background: rgba(212, 176, 122, 0.12); color: var(--accent-warm); }
+  .scenario.b .tag-top { background: rgba(154, 194, 148, 0.12); color: var(--accent-3); }
+
+  .scenario h3 {
+    font-family: 'Charter', Georgia, serif;
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+  }
+
+  .scenario p { font-size: 0.93rem; color: var(--muted); line-height: 1.55; }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- ──────────────────────────────────────────
+       S1 · Title
+  ────────────────────────────────────────── -->
+  <div class="slide slide-title active">
+    <div class="eyebrow">Workshop · Applied AI Tools</div>
+    <h1>Claude Code and<br>AI Capabilities for<br>Economics Research and Teaching</h1>
+    <p class="lede">What AI changes about the tasks you are trained to perform, and how to work with models today.</p>
+    <div class="meta">
+      <div class="meta-item"><span>Audience</span><span>Economics PhD students</span></div>
+      <div class="meta-item"><span>Format</span><span>1-hour intro · tools session to follow</span></div>
+      <div class="meta-item"><span>Instructor</span><span>João B. Sousa</span></div>
+      <div class="meta-item"><span>Year</span><span>2026</span></div>
+    </div>
+    <span class="slide-num">1 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S2 · The question
+  ────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="eyebrow">Motivation</div>
+    <h2>Is a PhD still worth it?</h2>
+
+    <p class="lede" style="margin-bottom: 28px">
+      The PhD is an investment in a specific stock of human capital: reading, modeling,
+      estimating, writing, refereeing. The return to that capital depends on how much of it
+      AI now supplies at or below its cost.
+    </p>
+
+    <div class="callout">
+      Two scenarios stress-test the question. In the first, AI does <em>all</em> of it at
+      human level or above. In the second, AI does <em>some</em> of it, and the rest is
+      augmented. The talk walks through both and asks what survives.
+    </div>
+
+    <span class="slide-num">2 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S3 · Scenario A — Full automation
+  ────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="eyebrow">Scenario A</div>
+    <h2>Full automation</h2>
+
+    <p class="lede" style="margin-bottom: 22px">
+      Assume AI performs every task in the research pipeline at human level or above —
+      including idea generation.
+    </p>
+
+    <div class="two-col uneven">
+      <div>
+        <div class="kicker">Tasks performed by AI</div>
+        <ul class="clean tight" style="margin-top: 6px">
+          <li><strong>Idea generation</strong></li>
+          <li>Reading and synthesizing literature</li>
+          <li>Theory and mathematical modeling</li>
+          <li>Identification and research design</li>
+          <li>Data collection and cleaning</li>
+          <li>Estimation and inference</li>
+          <li>Writing and revision</li>
+          <li>Refereeing</li>
+        </ul>
+      </div>
+      <div>
+        <div class="kicker">What is left for humans</div>
+        <div class="card accent-2" style="margin-top: 6px">
+          <h3>Evaluation of final output</h3>
+          <p>Judging whether the answer is correct, credible, and relevant.</p>
+        </div>
+        <div class="card accent-2" style="margin-top: 10px">
+          <h3>Accountability for policy prescriptions</h3>
+          <p>Institutions and professions assign responsibility to people, not systems.</p>
+        </div>
+        <div class="callout" style="margin-top: 14px; border-left-color: var(--accent)">
+          <strong>Implication.</strong> The premium on PhD-specific human capital falls sharply.
+          But operating in this world requires fluency with the tools. Learning them is a
+          prerequisite, not an option.
+        </div>
+      </div>
+    </div>
+
+    <span class="slide-num">3 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S4 · Scenario B — Augmentation
+  ────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="eyebrow">Scenario B</div>
+    <h2>Augmentation</h2>
+
+    <p class="lede" style="margin-bottom: 22px">
+      AI substitutes for some tasks, complements others. The productivity gain is captured
+      by those who know how to use the tools.
+    </p>
+
+    <div class="cards col3">
+      <div class="card accent">
+        <div class="label">Substitution</div>
+        <h3>Routine tasks</h3>
+        <p>Data cleaning, code, reference formatting, first drafts.</p>
+      </div>
+      <div class="card accent-2">
+        <div class="label">Complementarity</div>
+        <h3>Judgment tasks</h3>
+        <p>Identification strategy, interpretation, field-specific intuition, choosing what matters.</p>
+      </div>
+      <div class="card accent-3">
+        <div class="label">Residual premium</div>
+        <h3>Taste and agenda</h3>
+        <p>Picking questions that are worth answering; knowing when a result is important.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 22px">
+      <strong>Economic logic.</strong> Task-based framework (Autor, Acemoglu, etc.): AI shifts which
+      tasks machines can do; gains flow to workers whose skills complement the remaining tasks,
+      and to those who adopt the tools early.
+    </div>
+
+    <span class="slide-num">4 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S5 · Takeaway
+  ────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="eyebrow">Motivation · conclusion</div>
+    <h2>Both roads lead to the same action</h2>
+
+    <div class="scenarios" style="margin-bottom: 28px">
+      <div class="scenario a">
+        <span class="tag-top">Scenario A</span>
+        <h3>Full automation</h3>
+        <p>Learn the tools to evaluate output and to retain accountability over decisions.</p>
+      </div>
+      <div class="scenario b">
+        <span class="tag-top">Scenario B</span>
+        <h3>Augmentation</h3>
+        <p>Learn the tools to capture the productivity gain instead of being priced out by it.</p>
+      </div>
+    </div>
+
+    <div class="definition serif">
+      Under both scenarios, learning the tools dominates not learning them.
+      The rest of this talk maps which research tasks are most affected and how to
+      work with agents today.
+    </div>
+
+    <span class="slide-num">5 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S6 · What an AI agent is
+  ────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="eyebrow">Background</div>
+    <h2>What an AI agent is</h2>
+
+    <div class="definition">
+      An AI agent is <strong>software with an LLM at its core</strong>. The software gathers input,
+      enforces rules, mediates tool calls, and runs the loop — without a human directing each step.
+    </div>
+
+    <div class="cards col4">
+      <div class="card accent">
+        <div class="label">Step 1</div>
+        <h3>Perceive</h3>
+        <p>Software assembles context — files, data, prior state, user prompt.</p>
+      </div>
+      <div class="card accent">
+        <div class="label">Step 2</div>
+        <h3>Reason</h3>
+        <p>LLM outputs text — either an answer, or a structured tool call specifying what to do next.</p>
+      </div>
+      <div class="card accent">
+        <div class="label">Step 3</div>
+        <h3>Act</h3>
+        <p>Software routes the LLM's tool calls — code, search, APIs, file edits.</p>
+      </div>
+      <div class="card accent">
+        <div class="label">Step 4</div>
+        <h3>Loop</h3>
+        <p>Software feeds the result back and continues until the goal is met.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 22px; border-left-color: var(--accent-3)">
+      <strong>You shape the software layer.</strong> Custom instructions, hooks, skills, house rules —
+      these live in the software around the LLM. That is where you guide the agent's behavior.
+    </div>
+
+    <span class="slide-num">6 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S7 · Why now
+  ────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="eyebrow">Background</div>
+    <h2>Why now</h2>
+
+    <div class="two-col">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">2017</div>
+          <div class="tl-content">
+            <h3>Transformer architecture</h3>
+            <p>Attention Is All You Need. The architecture behind every modern LLM.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2020</div>
+          <div class="tl-content">
+            <h3>GPT-3 and AlphaFold 2</h3>
+            <p>Few-shot reasoning at scale; 50-year protein-folding problem solved.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">2023</div>
+          <div class="tl-content">
+            <h3>Tool use</h3>
+            <p>Models learn to call external tools — the first real agents.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2024–26</div>
+          <div class="tl-content">
+            <h3>Reasoning and coding agents</h3>
+            <p>Step-by-step reasoning; agents that write, run, and debug full codebases.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 26px">
+      Agents are useful now because three capabilities converged: a strong general-purpose model,
+      reliable tool calling, and long-running autonomous loops.
+    </div>
+
+    <span class="slide-num">7 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S8 · The PhD skill stack
+  ────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="eyebrow" style="margin-bottom: 14px">PhD tasks × AI</div>
+    <h2 style="margin-bottom: 18px">The tasks of a PhD</h2>
+
+    <p class="lede" style="margin-bottom: 10px; font-size: 1.1rem">
+      A PhD trains students on a specific set of research tasks. AI capability varies across them.
+    </p>
+
+    <div class="callout" style="margin-bottom: 14px; padding: 10px 16px; font-size: 0.96rem">
+      <strong>Tasks vs. skills (Autor et al.).</strong> Tasks are units of work; skills are the
+      capacities applied to tasks. AI competes at the task level — skill value depends on which
+      tasks still require them.
+    </div>
+
+    <div class="matrix">
+      <div class="row head">
+        <div class="cell">Task</div>
+        <div class="cell">What agents do today</div>
+        <div class="cell">Capability</div>
+      </div>
+      <div class="row">
+        <div class="cell skill">Reading literature</div>
+        <div class="cell">Map a field, extract arguments, summarize across dozens of papers.</div>
+        <div class="cell"><span class="cap strong">Strong</span></div>
+      </div>
+      <div class="row">
+        <div class="cell skill">Coding and empirics</div>
+        <div class="cell">Write, translate, debug R / Python / Stata; run replication packages.</div>
+        <div class="cell"><span class="cap strong">Strong</span></div>
+      </div>
+      <div class="row">
+        <div class="cell skill">Data collection and cleaning</div>
+        <div class="cell">Scrape, parse, structure text and tabular data at scale.</div>
+        <div class="cell"><span class="cap strong">Strong</span></div>
+      </div>
+      <div class="row">
+        <div class="cell skill">Writing and revision</div>
+        <div class="cell">Draft, tighten, restructure, translate tone, respond to referees.</div>
+        <div class="cell"><span class="cap strong">Strong</span></div>
+      </div>
+      <div class="row">
+        <div class="cell skill">Theory and math</div>
+        <div class="cell">Derive standard results; proofs are uneven; long derivations drift.</div>
+        <div class="cell"><span class="cap partial">Partial</span></div>
+      </div>
+      <div class="row">
+        <div class="cell skill">Econometric methods</div>
+        <div class="cell">Implement known estimators; weaker on novel identification.</div>
+        <div class="cell"><span class="cap partial">Partial</span></div>
+      </div>
+      <div class="row">
+        <div class="cell skill">Refereeing and critique</div>
+        <div class="cell">Useful first pass; misses field-specific judgment.</div>
+        <div class="cell"><span class="cap partial">Partial</span></div>
+      </div>
+      <div class="row">
+        <div class="cell skill">Research design</div>
+        <div class="cell">Picking questions and identification strategies that matter.</div>
+        <div class="cell"><span class="cap weak">Weak</span></div>
+      </div>
+    </div>
+
+    <div class="deep-dive-nav" style="margin-top: 16px">
+      <span class="label">Deep dives (optional):</span>
+      <button class="deep-dive-btn" onclick="goTo(8)">Literature</button>
+      <button class="deep-dive-btn" onclick="goTo(9)">Coding</button>
+      <button class="deep-dive-btn" onclick="goTo(10)">Writing</button>
+      <button class="deep-dive-btn" onclick="goTo(11)">Research design</button>
+    </div>
+
+    <span class="slide-num">8 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S9 · Literature & synthesis (OPTIONAL)
+  ────────────────────────────────────────── -->
+  <div class="slide optional">
+    <div class="eyebrow">Deep dive · Reading</div>
+    <h2>Literature and synthesis</h2>
+
+    <div class="two-col">
+      <div>
+        <div class="kicker">What agents do well</div>
+        <ul class="clean">
+          <li>Map a field from a handful of seed papers.</li>
+          <li>Extract arguments, assumptions, data, methods.</li>
+          <li>Summarize a full paper with citations to sections.</li>
+          <li>Surface related work and identify gaps.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="kicker">Where they fail</div>
+        <ul class="clean">
+          <li>Fabricated citations and DOI errors.</li>
+          <li>Shallow synthesis when the prompt is shallow.</li>
+          <li>Missing the paper's <em>contribution</em>, not just its content.</li>
+        </ul>
+        <div class="callout" style="margin-top: 16px">
+          <strong>Rule.</strong> Always verify cites against the source. Treat synthesis as
+          a draft you edit, not a reference you cite.
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 22px">
+      <span class="dim" style="font-size: 0.88rem; letter-spacing: 1px;">TOOLS · </span>
+      <span class="tag hi">Claude / ChatGPT</span>
+      <span class="tag hi">NotebookLM</span>
+      <span class="tag">Perplexity</span>
+      <span class="tag">Deep Research</span>
+    </div>
+
+    <button class="back-btn" onclick="goTo(7)">← Back to tasks</button>
+    <span class="slide-num">9 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S10 · Coding & empirics (OPTIONAL)
+  ────────────────────────────────────────── -->
+  <div class="slide optional">
+    <div class="eyebrow">Deep dive · Empirics</div>
+    <h2>Coding and empirics</h2>
+
+    <p class="lede" style="margin-bottom: 18px">
+      The highest-leverage area today. Cost per line of correct code has collapsed.
+    </p>
+
+    <div class="two-col">
+      <div>
+        <div class="kicker">What agents do well</div>
+        <ul class="clean">
+          <li>Translate between Stata, R, Python, Julia.</li>
+          <li>Write regressions, tables, plots.</li>
+          <li>Debug stack traces and failing tests.</li>
+          <li>Clean messy datasets and reshape panels.</li>
+          <li>Run existing replication packages.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="kicker">What you still own</div>
+        <ul class="clean">
+          <li>Specification choices and their economic meaning.</li>
+          <li>Identification strategy and its assumptions.</li>
+          <li>Sanity checking: do the numbers make sense?</li>
+          <li>Deciding what to drop and what to keep.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 22px">
+      Use agents to move faster on tasks you already know how to evaluate. Do not use them
+      to generate estimates you cannot check.
+    </div>
+
+    <button class="back-btn" onclick="goTo(7)">← Back to tasks</button>
+    <span class="slide-num">10 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S11 · Writing & revision (OPTIONAL)
+  ────────────────────────────────────────── -->
+  <div class="slide optional">
+    <div class="eyebrow">Deep dive · Writing</div>
+    <h2>Writing and revision</h2>
+
+    <div class="two-col">
+      <div>
+        <div class="kicker">What agents do well</div>
+        <ul class="clean">
+          <li>Tighten prose; cut redundancy; enforce style.</li>
+          <li>Restructure an introduction around a claim.</li>
+          <li>Draft referee responses from comments plus your notes.</li>
+          <li>Translate between formats: slides ↔ paper ↔ abstract.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="kicker">What you still own</div>
+        <ul class="clean">
+          <li>The argument and its framing.</li>
+          <li>Claims made — and their strength.</li>
+          <li>The voice of the paper.</li>
+        </ul>
+        <div class="callout" style="margin-top: 14px">
+          Write the first draft of your ideas yourself. Use the model to revise, not to
+          originate.
+        </div>
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="goTo(7)">← Back to tasks</button>
+    <span class="slide-num">11 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S12 · Research design & taste (OPTIONAL)
+  ────────────────────────────────────────── -->
+  <div class="slide optional">
+    <div class="eyebrow">Deep dive · Design</div>
+    <h2>Research design and taste</h2>
+
+    <p class="lede" style="margin-bottom: 22px">
+      Where agents are weakest today — and where PhD-specific value holds longest.
+    </p>
+
+    <div class="cards col2">
+      <div class="card warn">
+        <div class="label">Weak today</div>
+        <h3>Picking questions that matter</h3>
+        <p>Models can brainstorm hundreds of questions. Choosing the one worth a
+          two-year investment requires field context they do not yet carry.</p>
+      </div>
+      <div class="card warn">
+        <div class="label">Weak today</div>
+        <h3>Identification that holds up</h3>
+        <p>Models recognize textbook designs. They are weaker at spotting novel
+          sources of variation or at defending assumptions under scrutiny.</p>
+      </div>
+      <div class="card accent-3">
+        <div class="label">Still yours</div>
+        <h3>Taste</h3>
+        <p>Which result is interesting; which robustness check is the real test;
+          what the profession will find convincing.</p>
+      </div>
+      <div class="card accent-3">
+        <div class="label">Still yours</div>
+        <h3>Agenda</h3>
+        <p>Connecting papers into a coherent research program over years.</p>
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="goTo(7)">← Back to tasks</button>
+    <span class="slide-num">12 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S13 · The working loop
+  ────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="eyebrow">How to work with models</div>
+    <h2>The working loop</h2>
+
+    <p class="lede" style="margin-bottom: 22px">
+      Specify the goal and the constraints. Let the model plan. Have sub-agents
+      audit and test independently. Evaluate against the goal.
+    </p>
+
+    <div class="flow">
+      <div class="step">
+        <div class="n">01</div>
+        <h3>Prompt the goal</h3>
+        <p>State what "done" looks like. Broad, not step-by-step.</p>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <h3>Guide behavior</h3>
+        <p>Context, hooks, skills, custom instructions, house rules.</p>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <h3>Model plans &amp; executes</h3>
+        <p>Ask it to propose an approach, then carry it out.</p>
+      </div>
+      <div class="step">
+        <div class="n">04</div>
+        <h3>Sub-agents verify</h3>
+        <p>Autonomous checks for compliance and output validation.</p>
+      </div>
+      <div class="step user">
+        <div class="n">05</div>
+        <h3>You evaluate</h3>
+        <p>Final output against the original goal. This is your job.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Posture.</strong> Do not micromanage steps. Specify goal + constraints +
+      verification. If you cannot define verification, you cannot delegate the task.
+    </div>
+
+    <span class="slide-num">13 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S14 · Extending the models
+  ────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="eyebrow">How to work with models</div>
+    <h2>Extending the models</h2>
+
+    <p class="lede" style="margin-bottom: 22px">
+      The base model is the substrate. Your setup is what makes it yours.
+    </p>
+
+    <div class="cards col2">
+      <div class="card accent">
+        <div class="label">Your tools</div>
+        <h3>Custom capabilities</h3>
+        <p>Scripts, APIs, database queries, lab-specific utilities exposed to the model.
+          The model gains whatever the tool can do.</p>
+      </div>
+      <div class="card accent">
+        <div class="label">Hooks</div>
+        <h3>Automated triggers</h3>
+        <p>Actions that fire before or after the model acts — formatting, linting,
+          logging, blocking unsafe commands.</p>
+      </div>
+      <div class="card accent">
+        <div class="label">Skills</div>
+        <h3>Reusable instructions</h3>
+        <p>Packaged know-how the model loads on demand. A standardized way to encode
+          your workflow.</p>
+      </div>
+      <div class="card accent">
+        <div class="label">Sub-agents</div>
+        <h3>Verification and specialization</h3>
+        <p>Delegate checks, reviews, or focused sub-tasks to isolated agents whose
+          output the main agent consumes.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 20px">
+      The pattern: start with the built-in capabilities, identify what your workflow
+      needs that is missing, add it as a tool or skill, test, repeat.
+    </div>
+
+    <span class="slide-num">14 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S15 · Infrastructure around the model
+  ────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="eyebrow">How to work with models</div>
+    <h2>Infrastructure around the model</h2>
+
+    <div class="cards col3">
+      <div class="card accent-2">
+        <div class="label">Versioning</div>
+        <h3>Git — for everything</h3>
+        <p>Code, prompts, instructions, notes. Every change reversible; every session reproducible.</p>
+      </div>
+      <div class="card accent-2">
+        <div class="label">Plans</div>
+        <h3>Markdown files</h3>
+        <p>Work plans, task lists, house rules — written in <code>.md</code> the model
+          can read and update in place.</p>
+      </div>
+      <div class="card accent-2">
+        <div class="label">Knowledge</div>
+        <h3>Obsidian (or similar)</h3>
+        <p>A persistent knowledge base for papers, ideas, and project notes that the
+          model can search.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 22px; border-left-color: var(--accent-3)">
+      <strong>Model-agnostic.</strong> The loop and the infrastructure are the same across
+      Claude, ChatGPT, Gemini, and what comes next. Invest in the workflow — model choice
+      is a switch, not a rewrite.
+    </div>
+
+    <span class="slide-num">15 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S16 · Where agents fail
+  ────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="eyebrow">Calibration</div>
+    <h2>Where agents fail</h2>
+
+    <div class="cards col3">
+      <div class="card warn">
+        <div class="label">Hallucination</div>
+        <h3>Fabricated citations</h3>
+        <p>Confidently wrong references. Always check DOI, authors, year, venue.</p>
+      </div>
+      <div class="card warn">
+        <div class="label">Math</div>
+        <h3>Confident wrong derivations</h3>
+        <p>Step-by-step reasoning helps but does not solve it. Verify non-trivial algebra.</p>
+      </div>
+      <div class="card warn">
+        <div class="label">Code</div>
+        <h3>Over-eager refactors</h3>
+        <p>Rewrites more than you asked; silently changes behavior. Read diffs.</p>
+      </div>
+      <div class="card warn">
+        <div class="label">Knowledge</div>
+        <h3>Stale world model</h3>
+        <p>Cutoff dates miss recent papers, APIs, syntax. Provide current context.</p>
+      </div>
+      <div class="card warn">
+        <div class="label">Judgment</div>
+        <h3>Weak field-specific taste</h3>
+        <p>Does not know which specification is standard in your subfield.</p>
+      </div>
+      <div class="card warn">
+        <div class="label">Scale</div>
+        <h3>Context limits</h3>
+        <p>Long tasks drift. Break work into verifiable chunks with checkpoints.</p>
+      </div>
+    </div>
+
+    <span class="slide-num">16 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S17 · Strategy for PhD students
+  ────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="eyebrow">Practice</div>
+    <h2>Strategy for PhD students</h2>
+
+    <div class="cards col2">
+      <div class="card accent-3">
+        <div class="label">Do</div>
+        <h3>Learn to operate agents</h3>
+        <p>Prompting, context, verification, tool setup. This is the new baseline literacy.</p>
+      </div>
+      <div class="card accent-3">
+        <div class="label">Do</div>
+        <h3>Move faster on evaluable tasks</h3>
+        <p>If you can check the output in minutes, delegate the first pass.</p>
+      </div>
+      <div class="card warn">
+        <div class="label">Don't</div>
+        <h3>Outsource training</h3>
+        <p>Do not skip the parts of the PhD you are there to learn — identification,
+          derivations, first drafts.</p>
+      </div>
+      <div class="card warn">
+        <div class="label">Don't</div>
+        <h3>Publish what you can't verify</h3>
+        <p>If you cannot independently check a result, you cannot put your name on it.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 22px">
+      <strong>Rule of thumb.</strong> Use agents where you already have the knowledge to
+      judge the output.
+    </div>
+
+    <span class="slide-num">17 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S18 · Attribution & reproducibility
+  ────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="eyebrow">Norms</div>
+    <h2>Attribution and reproducibility</h2>
+
+    <p class="lede" style="margin-bottom: 22px">
+      The discipline's standards for transparency extend to AI-assisted work. Documentation
+      is the mechanism.
+    </p>
+
+    <div class="two-col">
+      <div>
+        <div class="kicker">Attribution</div>
+        <ul class="clean">
+          <li>Disclose substantive AI use in the paper (method, scope, role).</li>
+          <li>Follow journal and funder guidance; norms are tightening.</li>
+          <li>AI is not a co-author. Responsibility remains with you.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="kicker">Reproducibility</div>
+        <ul class="clean">
+          <li>Version prompts, instructions, and configuration alongside code.</li>
+          <li>Log model, version, date for any agent-run step that affects results.</li>
+          <li>Treat AI-produced code and data like any other artifact: archive, cite, release.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 22px; border-left-color: var(--accent-3)">
+      <strong>Documentation is key.</strong> If a reviewer — or future you — cannot reconstruct
+      what the model did, the result is not reproducible.
+    </div>
+
+    <span class="slide-num">18 / 19</span>
+  </div>
+
+  <!-- ──────────────────────────────────────────
+       S19 · Meta
+  ────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="eyebrow">Meta</div>
+    <h2>About these slides</h2>
+
+    <div class="definition serif" style="margin-bottom: 26px">
+      This deck was written with <strong>Claude Opus 4.7</strong> (Anthropic), in an
+      iterative session with the instructor. The output is a single self-contained HTML
+      file — no design tools, no templates.
+    </div>
+
+    <div class="card accent" style="max-width: 860px">
+      <div class="label">Working prompt</div>
+      <p style="font-style: italic; color: var(--text-mid); line-height: 1.65">
+        "Build a 1-hour intro deck on AI agents for economics PhD students. Frame it around
+        the tasks of a PhD — what agents do, where they fail, what still belongs to the
+        student. Open with the full-automation vs. augmentation motivation. Academic style,
+        close to modern dark but not neon."
+      </p>
+    </div>
+
+    <div class="meta" style="margin-top: 28px; flex-wrap: wrap; gap: 32px">
+      <div class="meta-item"><span>Model</span><span>Claude Opus 4.7 · Anthropic</span></div>
+      <div class="meta-item"><span>Interface</span><span>Claude Code (CLI)</span></div>
+      <div class="meta-item"><span>Output</span><span>Single HTML file, self-contained</span></div>
+      <div class="meta-item"><span>Date</span><span>April 2026</span></div>
+    </div>
+
+    <span class="slide-num">19 / 19</span>
+  </div>
+
+</div>
+
+<nav>
+  <button id="prev" onclick="go(-1)" disabled>← Prev</button>
+  <div class="dots" id="dots"></div>
+  <button id="next" onclick="go(1)">Next →</button>
+</nav>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsEl = document.getElementById('dots');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  let cur = 0;
+
+  // Split slides into the main flow (shown by default) and optional (deep dives).
+  const mainFlow = [];
+  const optionalFlow = [];
+  slides.forEach((slide, i) => {
+    if (slide.classList.contains('optional')) optionalFlow.push(i);
+    else mainFlow.push(i);
+  });
+
+  // Dots represent the main flow only.
+  mainFlow.forEach((slideIdx) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (slideIdx === cur ? ' active' : '');
+    d.onclick = () => goTo(slideIdx);
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    n = Math.max(0, Math.min(n, slides.length - 1));
+    slides[cur].classList.remove('active');
+    cur = n;
+    slides[cur].classList.add('active');
+
+    const mainIdx = mainFlow.indexOf(cur);
+    Array.from(dotsEl.children).forEach((d, i) => {
+      d.classList.toggle('active', i === mainIdx);
+    });
+
+    const isOptional = slides[cur].classList.contains('optional');
+    const optIdx = optionalFlow.indexOf(cur);
+    prevBtn.disabled = isOptional ? false : mainIdx === 0;
+    nextBtn.disabled = isOptional
+      ? optIdx === optionalFlow.length - 1
+      : mainIdx === mainFlow.length - 1;
+  }
+
+  function go(dir) {
+    if (slides[cur].classList.contains('optional')) {
+      const i = optionalFlow.indexOf(cur);
+      const ni = i + dir;
+      if (ni >= 0 && ni < optionalFlow.length) goTo(optionalFlow[ni]);
+      else if (ni < 0) goTo(7); // back to skill stack (slide 8)
+      // ni >= length: do nothing (stop at last deep dive)
+    } else {
+      const i = mainFlow.indexOf(cur);
+      const ni = i + dir;
+      if (ni >= 0 && ni < mainFlow.length) goTo(mainFlow[ni]);
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') go(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                     go(-1);
+  });
+</script>
+</body>
+</html>
