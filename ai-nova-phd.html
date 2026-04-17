@@ -1365,16 +1365,12 @@
 </div>
 
 <nav>
-  <button id="prev" onclick="go(-1)" disabled>← Prev</button>
   <div class="dots" id="dots"></div>
-  <button id="next" onclick="go(1)">Next →</button>
 </nav>
 
 <script>
   const slides = document.querySelectorAll('.slide');
   const dotsEl = document.getElementById('dots');
-  const prevBtn = document.getElementById('prev');
-  const nextBtn = document.getElementById('next');
   let cur = 0;
 
   // Split slides into the main flow (shown by default) and optional (deep dives).
@@ -1404,12 +1400,6 @@
       d.classList.toggle('active', i === mainIdx);
     });
 
-    const isOptional = slides[cur].classList.contains('optional');
-    const optIdx = optionalFlow.indexOf(cur);
-    prevBtn.disabled = isOptional ? false : mainIdx === 0;
-    nextBtn.disabled = isOptional
-      ? optIdx === optionalFlow.length - 1
-      : mainIdx === mainFlow.length - 1;
   }
 
   function go(dir) {
